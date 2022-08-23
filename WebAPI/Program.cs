@@ -1,13 +1,36 @@
-using Business.Abstract;
+ using Business.Abstract;
 using Business.Concrete;
 using DataAccess.Abstract;
 using DataAccess.Concrete;
 
-var builder = WebApplication.CreateBuilder(args);
+// CORS Etkinleþtimek için 
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
+var builder = WebApplication.CreateBuilder(args);
+// CORS Etkinleþtimek için
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.AllowAnyOrigin();
+                          policy.AllowAnyHeader();
+                          policy.AllowAnyMethod();
+                      });
+});
 // Add services to the container.
 builder.Services.AddScoped<IProductDal, EfProductDal>();
 builder.Services.AddScoped<IProductService, ProductManager>();
+
+builder.Services.AddScoped<IUserDal, EfUsersDal>();
+builder.Services.AddScoped<IUserService, UserManager>();
+
+builder.Services.AddScoped<ICityDal, EfCityDal>();
+builder.Services.AddScoped<ICityService,CityManager >();
+
+builder.Services.AddScoped<IDistrictDal, EfDistrictDal>();
+builder.Services.AddScoped<IDistrictService, DistrictManager>();
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -23,7 +46,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCors(MyAllowSpecificOrigins);
 app.UseAuthorization();
 
 app.MapControllers();

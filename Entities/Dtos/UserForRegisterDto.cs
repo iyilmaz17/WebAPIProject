@@ -1,15 +1,13 @@
-﻿using Entities.Abstract;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Concrete
+namespace Entities.Dtos
 {
-    public class User : IEntity
+    public class UserForRegisterDto : IDto
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Email { get; set; }
@@ -17,6 +15,6 @@ namespace Entities.Concrete
         public DateTime BirthDate { get; set; }
         public string Phone { get; set; }
         public string ProfilImage { get; set; }
-
     }
 }
+

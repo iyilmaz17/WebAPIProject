@@ -15,6 +15,7 @@ namespace Entities.Concrete
         public string Brand { get; set; }
         public int Stock { get; set; }
         public int UnitPrice { get; set; }
+        public string Image1 { get; set; }
 
     }
 }

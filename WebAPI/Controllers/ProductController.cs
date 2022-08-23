@@ -20,5 +20,10 @@ namespace WebAPI.Controllers
         {
             return productService.GetById(id);
         }
+        [HttpGet]
+        public List<Product> GetAll()
+        {
+            return productService.GetAll();
+        }
     }
 }
