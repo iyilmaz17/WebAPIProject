@@ -12,5 +12,6 @@ namespace Business.Abstract
         List<Product> GetAll();
         Product GetById(int id);
         List<Product> GetAllByCategoryId(int id);
+        Product GetCategoryName (int id);
     }
 }

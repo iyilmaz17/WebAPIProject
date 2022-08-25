@@ -9,7 +9,7 @@ namespace Entities.Concrete
 {
     public class User : IEntity
     {
-        public int Id { get; set; }
+        public int UserId { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Email { get; set; }
@@ -17,6 +17,7 @@ namespace Entities.Concrete
         public DateTime BirthDate { get; set; }
         public string Phone { get; set; }
         public string ProfilImage { get; set; }
+        public List<Address> Address { get; set; }
 
     }
 }

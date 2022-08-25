@@ -13,7 +13,7 @@ namespace Business.Concrete
     {
         IProductDal _productDal;
 
-        public ProductManager(IProductDal productDal)
+        public ProductManager(IProductDal productDal, ICategoryService categoryService)
         {
             _productDal = productDal;
         }
@@ -28,6 +28,11 @@ namespace Business.Concrete
         }
 
         public Product GetById(int id)
+        {
+            return _productDal.Get(p => p.Id == id);
+        }
+
+        public Product GetCategoryName(int id)
         {
             return _productDal.Get(p => p.Id == id);
         }

@@ -9,7 +9,7 @@ namespace Business.Concrete
     {
         IUserDal _userDal;
 
-        public UserManager(IUserDal userDal)
+        public UserManager(IUserDal userDal, IAddressService addressService)
         {
             _userDal = userDal;
         }
@@ -24,7 +24,8 @@ namespace Business.Concrete
                 Password = userForRegisterDto.Password,
                 Phone = userForRegisterDto.Phone,
                 ProfilImage= userForRegisterDto.ProfilImage,
-                BirthDate =userForRegisterDto.BirthDate
+                BirthDate =userForRegisterDto.BirthDate,
+
             };
             _userDal.Add(user);
             
@@ -37,7 +38,7 @@ namespace Business.Concrete
 
         public User GetById(int id)
         {
-            return _userDal.Get(p => p.Id == id);
+            return _userDal.Get(p => p.UserId == id);
         }
         public UserForLoginDto Login(UserForLoginDto userForLoginDto)
         {

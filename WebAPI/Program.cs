@@ -31,6 +31,12 @@ builder.Services.AddScoped<ICityService,CityManager >();
 builder.Services.AddScoped<IDistrictDal, EfDistrictDal>();
 builder.Services.AddScoped<IDistrictService, DistrictManager>();
 
+builder.Services.AddScoped<ICategoryDal, EfCategoryDal>();
+builder.Services.AddScoped<ICategoryService, CategoryManager>();
+
+builder.Services.AddScoped<IAddressDal, EfAddressDal>();
+builder.Services.AddScoped<IAddressService, AddressManager>();
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

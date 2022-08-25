@@ -18,5 +18,7 @@ namespace DataAccess.Concrete
         public DbSet<Product> Products { get; set; }
         public DbSet<City> Citys { get; set; }
         public DbSet<District> Districts { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Address> Addresses { get; set; }
     }
 }
