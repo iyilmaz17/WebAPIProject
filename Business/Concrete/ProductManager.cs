@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Business.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.Dtos;
@@ -19,14 +21,17 @@ namespace Business.Concrete
             _productDal = productDal;
         }
 
-        public void AddProduct(Product product)
+        public IResult AddProduct(Product product)
         {
+            
+
             _productDal.Add(product);
+            return new Result(true,Messages.productAdded);
         }
 
-        public List<Product> GetAll()
+        public IDataResult<List<Product>> GetAll()
         {
-            return _productDal.GetAll();
+            return new SuccessDataResult<List<Product>>(_productDal.GetAll(),Messages.ProductsListed);
         }
 
         public List<Product> GetAllByCategoryId(int id)
@@ -34,9 +39,9 @@ namespace Business.Concrete
             return _productDal.GetAll(p=>p.CategoryId == id);
         }
 
-        public Product GetById(int id)
+        public IDataResult<Product> GetById(int id)
         {
-            return _productDal.Get(p => p.Id == id);
+            return new SuccessDataResult<Product>(_productDal.Get(p => p.Id == id));
         }
 
         public Product GetCategoryName(int id)

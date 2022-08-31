@@ -1,4 +1,7 @@
-﻿using Business.Abstract;
+﻿
+using Business.Abstract;
+using Business.Constants;
+using Business.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.Dtos;
@@ -14,7 +17,7 @@ namespace Business.Concrete
         {
             _userDal = userDal;
             _addressService = addressService;
-        }
+        }   
         public void Register(UserForRegisterDto userForRegisterDto)
         {
 
@@ -35,7 +38,7 @@ namespace Business.Concrete
                 AddressText = userForRegisterDto.AddressText,
                 CityId = userForRegisterDto.CityId,
                 DistrictId = userForRegisterDto.DistrictId,
-                
+
 
             };
             _addressService.AddAddress(address);
