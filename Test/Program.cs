@@ -1,20 +1,21 @@
-﻿using Business.Concrete;
-using DataAccess.Concrete;
+﻿//using Business.Concrete;
+//using DataAccess.Concrete;
 
-namespace ConsoleUI
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            ProductManager productManager = new ProductManager(new EfProductDal());
+//public static void ProductTest()
+//{
+//    AddressManager address = new AddressManager(new EfAddressDal()
+//        , new UserManager(new EfUsersDal()));
 
-            //foreach (var product in productManager.GetById(7))
-            //{
-              //  Console.WriteLine(product.ProductName);
-            //}
-            
-            //CategoryTest();
-        }
-    }
-}
+//    var result = address.GetProductDetails();
+
+//    if (result.Success == true)
+//    {
+//        foreach (var product in result.Data)
+//        {
+//            Console.WriteLine(product.ProductName + "/" + product.CategoryName);
+//        }
+//    }
+//    else
+//    {
+//        Console.WriteLine(result.Message);
+//    }

@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Entities.Concrete;
+using Entities.Dtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,9 +22,14 @@ namespace WebAPI.Controllers
             return productService.GetById(id);
         }
         [HttpGet]
-        public List<Product> GetAll()
+        public List<GetProductCategoryNameDto> GetAll()
         {
-            return productService.GetAll();
+            return productService.GetproductDetails();
+        }
+        [HttpPost]
+        public void AddProduct(Product product)
+        {
+            productService.AddProduct(product);
         }
     }
 }

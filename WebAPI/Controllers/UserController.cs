@@ -35,20 +35,33 @@ namespace WebAPI.Controllers
         public UserForLoginDto Login(UserForLoginDto userForLoginDto)
         {
             var userToLogin = userService.Login(userForLoginDto);
-            if (userToLogin != null)
+            if (userToLogin!=null)
             {
-                return new UserForLoginDto { Email = userForLoginDto.Email }; 
+                return new UserForLoginDto { Email = userForLoginDto.Email };
             }
-
             return new UserForLoginDto { };
+
+
+            //if (userToLogin != null)
+            //{
+            //    return new UserForLoginDto { Email = userForLoginDto.Email }; 
+            //}
+
+            //return new UserForLoginDto { };
 
         }
         [HttpPost("register")]
         public ActionResult Register(UserForRegisterDto userForRegisterDto)
         {
+
             userService.Register(userForRegisterDto);
             return Ok();
         }
+
+
+
+
+
 
 
 

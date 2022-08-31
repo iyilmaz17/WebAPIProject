@@ -1,4 +1,5 @@
 ﻿using Entities.Concrete;
+using Entities.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace Business.Abstract
 {
     public interface IAddressService
     {
+        void AddAddress(Address address);
         List<Address> GetAll();
+        List<AddressDetailDto> GetAddressDetailDtos();
     }
 }

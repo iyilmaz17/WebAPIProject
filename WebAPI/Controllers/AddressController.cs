@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Entities.Concrete;
+using Entities.Dtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,6 +21,11 @@ namespace WebAPI.Controllers
         {
             return _addressService.GetAll().Where(p=>p.UserId==id).ToList();
         }
+        [HttpGet("{ll}")]
 
+        public List<AddressDetailDto> adresgetir()
+        {
+            return _addressService.GetAddressDetailDtos();
+        }
     }
 }

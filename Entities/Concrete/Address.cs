@@ -9,7 +9,7 @@ namespace Entities.Concrete
 {
     public class Address :IEntity
     {
-        public int AddressId { get; set; }
+        public int Id { get; set; }
         public int UserId { get; set; }
         public int CityId { get; set; }
         public int DistrictId { get; set; }

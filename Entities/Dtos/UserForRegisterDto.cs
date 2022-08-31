@@ -15,6 +15,9 @@ namespace Entities.Dtos
         public DateTime BirthDate { get; set; }
         public string Phone { get; set; }
         public string ProfilImage { get; set; }
+        public int CityId { get; set; }
+        public int DistrictId { get; set; }
+        public string AddressText { get; set; }
     }
 }
 

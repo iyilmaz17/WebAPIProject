@@ -13,9 +13,6 @@ namespace Business.Abstract
     {
         List<User> GetAll();
         User GetById(int id);
-
-        //void AddUser (User user);
-        //User LoginUser(string mail, string password);
         void Register(UserForRegisterDto userForRegisterDto);
         UserForLoginDto Login(UserForLoginDto userForLoginDto);
 
