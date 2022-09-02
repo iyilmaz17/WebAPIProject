@@ -1,4 +1,5 @@
-﻿using DataAccess.Abstract;
+﻿using Core.DataAccess.EntityFramework;
+using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.Dtos;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concrete
 {
-    public class EfProductDal : EfEntityRepository<Product, WebAPIContext>, IProductDal
+    public class EfProductDal : EfEntityRepositoryBase<Product, WebAPIContext>, IProductDal
     {
         public List<GetProductCategoryNameDto> GetproductDetails()
         {

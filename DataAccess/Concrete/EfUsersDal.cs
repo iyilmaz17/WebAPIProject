@@ -1,4 +1,5 @@
-﻿using DataAccess.Abstract;
+﻿using Core.DataAccess.EntityFramework;
+using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.Dtos;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concrete
 {
-    public class EfUsersDal : EfEntityRepository<User, WebAPIContext>, IUserDal
+    public class EfUsersDal : EfEntityRepositoryBase<User, WebAPIContext>, IUserDal
     {
 
 
