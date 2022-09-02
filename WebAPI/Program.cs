@@ -1,4 +1,6 @@
+using AutoMapper;
 using Business.Abstract;
+using Business.AutoMapper;
 using Business.Concrete;
 using DataAccess.Abstract;
 using DataAccess.Concrete;
@@ -37,10 +39,24 @@ builder.Services.AddScoped<ICategoryService, CategoryManager>();
 builder.Services.AddScoped<IAddressDal, EfAddressDal>();
 builder.Services.AddScoped<IAddressService, AddressManager>();
 
+
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
+// AutoMapper
+
+//var config = new MapperConfiguration(cfg =>{cfg.AddProfile(new AutoMapperProfile());});?var mapper = config.CreateMapper();builder.Services.AddSingleton(mapper);
+var config = new MapperConfiguration(cfg =>
+{
+    cfg.AddProfile(new AutoMapperProfile());
+});
+var mapper = config.CreateMapper();
+builder.Services.AddSingleton(mapper);
+
 
 
 

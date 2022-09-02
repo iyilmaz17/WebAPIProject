@@ -1,4 +1,4 @@
-﻿
+﻿using AutoMapper;
 using Business.Abstract;
 using Business.Constants;
 using Business.Results;
@@ -12,33 +12,27 @@ namespace Business.Concrete
     {
         IUserDal _userDal;
         IAddressService _addressService;
+        private readonly IMapper _mapper;
 
-        public UserManager(IUserDal userDal, IAddressService addressService)
+        public UserManager(IUserDal userDal, IAddressService addressService, IMapper mapper)
         {
             _userDal = userDal;
             _addressService = addressService;
+            _mapper = mapper;
         }   
         public void Register(UserForRegisterDto userForRegisterDto)
         {
-
-            var user = new User
-            {
-                Name = userForRegisterDto.Name,
-                Surname = userForRegisterDto.Surname,
-                Email = userForRegisterDto.Email,
-                Password = userForRegisterDto.Password,
-                Phone = userForRegisterDto.Phone,
-                ProfilImage = userForRegisterDto.ProfilImage,
-                BirthDate = userForRegisterDto.BirthDate,
-            };
+            // User And UserForRegisterDto AutoMapping
+            var user = new User();
+            user = _mapper.Map<User>(userForRegisterDto);
             _userDal.Add(user);
+
             var address = new Address
             {
                 UserId = user.Id,
                 AddressText = userForRegisterDto.AddressText,
                 CityId = userForRegisterDto.CityId,
                 DistrictId = userForRegisterDto.DistrictId,
-
 
             };
             _addressService.AddAddress(address);

@@ -4,8 +4,10 @@ using Business.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.Dtos;
+using Microsoft.EntityFrameworkCore.Metadata;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,15 +25,24 @@ namespace Business.Concrete
 
         public IResult AddProduct(Product product)
         {
-            
-
             _productDal.Add(product);
             return new Result(true,Messages.productAdded);
         }
 
         public IDataResult<List<Product>> GetAll()
         {
-            return new SuccessDataResult<List<Product>>(_productDal.GetAll(),Messages.ProductsListed);
+            //if (_cacheManager.IsAdd("GetAll"))
+            //{
+            //    return _cacheManager.Get<IDataResult<List<Product>>>("GetAll");
+            //}
+            //else
+            //{
+            //    _cacheManager.Add("GetAll",_productDal,10);
+            //   
+            //}
+            return new SuccessDataResult<List<Product>>(_productDal.GetAll(), Messages.ProductsListed);
+
+
         }
 
         public List<Product> GetAllByCategoryId(int id)
