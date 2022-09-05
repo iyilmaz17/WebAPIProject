@@ -2,8 +2,14 @@ using AutoMapper;
 using Business.Abstract;
 using Business.AutoMapper;
 using Business.Concrete;
+using Core.CrossCuttingConcerns.Caching;
+using Core.CrossCuttingConcerns.Caching.Microsoft;
 using DataAccess.Abstract;
 using DataAccess.Concrete;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+
+
 
 // CORS Etkinleþtimek için 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -20,6 +26,7 @@ builder.Services.AddCors(options =>
                           policy.AllowAnyMethod();
                       });
 });
+builder.Services.AddMemoryCache();
 // Add services to the container.
 builder.Services.AddScoped<IProductDal, EfProductDal>();
 builder.Services.AddScoped<IProductService, ProductManager>();
@@ -40,24 +47,29 @@ builder.Services.AddScoped<IAddressDal, EfAddressDal>();
 builder.Services.AddScoped<IAddressService, AddressManager>();
 
 
+builder.Services.AddScoped<ICacheManager, MemoryCacheManager>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddMemoryCache();
+
+
+var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
 // AutoMapper
 
-//var config = new MapperConfiguration(cfg =>{cfg.AddProfile(new AutoMapperProfile());});?var mapper = config.CreateMapper();builder.Services.AddSingleton(mapper);
 var config = new MapperConfiguration(cfg =>
 {
     cfg.AddProfile(new AutoMapperProfile());
 });
 var mapper = config.CreateMapper();
+
 builder.Services.AddSingleton(mapper);
 
-
+// AutoMapper
 
 
 var app = builder.Build();

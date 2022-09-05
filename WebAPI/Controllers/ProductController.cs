@@ -41,11 +41,11 @@ namespace WebAPI.Controllers
         {
 
             var result = productService.GetAll();
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
+           // if (result.Success)
+            //{
+              //  return Ok(result);
+            //}
+            return Ok(result);
 
         }
 

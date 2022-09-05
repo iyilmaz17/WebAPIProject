@@ -18,6 +18,7 @@ namespace Business.Concrete
             _categoryDal = categoryDal;
         }
 
+        
         public List<Category> GetAll()
         {
             return _categoryDal.GetAll();

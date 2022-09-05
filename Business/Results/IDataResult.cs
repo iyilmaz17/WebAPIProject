@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Business.Results
 {
-    public interface IDataResult<T> : IResult
+    public interface IDataResult<out T> : IResult
     {
         T Data { get; }
     }
