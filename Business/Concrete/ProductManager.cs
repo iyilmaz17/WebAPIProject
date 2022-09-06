@@ -25,56 +25,35 @@ namespace Business.Concrete
             _productDal = productDal;
             _cacheManager = cacheManager;
         }
-        public IResult AddProduct(Product product)
+        public IResult Add(Product product)
         {
-
             _productDal.Add(product);
-            return new Result(true, Messages.productAdded);
+            return new SuccessResult(Messages.ProductAdded);
         }
-        //public IDataResult<List<Product>> GetAll()
-        //{
-        //    if (_cacheManager.IsAdd("GetAll"))
-        //    {
-        //        return _cacheManager.Get<IDataResult<List<Product>>>("GetAll");
-        //    }
-        //   else
-        //    {
-        //        var value = _productDal.GetAll();
-        //        _cacheManager.Add("GetAll", value, 10);
-        //        return new SuccessDataResult<List<Product>>(value, Messages.ProductsListed);
-        //    }
 
-        //}
-        //public IDataResult<List<Product>> GetAll()
-        //{
-        //    //var result = new List<Product>();
-        //    //if (_cacheManager.IsAdd("GetAll"))
-        //    //{
-        //    //    result = _cacheManager.Get<IDataResult<List<Product>>>
-        //    //}
-        //}
-
-        public List<Product> GetAll()
+        public IResult Delete(Product product)
         {
-            
+            _productDal.Delete(product);
+            return new SuccessResult(Messages.ProductDeleted);
+        }
+        public IDataResult<List<Product>> GetAll()
+        {
             var result = new List<Product>();
             if (_cacheManager.IsAdd("GetAll"))
             {
                 result = _cacheManager.Get<List<Product>>("GetAll");
-                return new List<Product>(result);
+                return new SuccessDataResult<List<Product>>(result, Messages.ProductsListed);
             }
-            result = _productDal.GetAll();
-            _cacheManager.Add("GetAll", result, 10);
-            return new List<Product>(result);
+            else
+            {
+                result = _productDal.GetAll();
+                _cacheManager.Add("GetAll", result, 10);
+                return new SuccessDataResult<List<Product>>(result, Messages.ProductsListed);
+            }
         }
-
-
-
-
-
-        public List<Product> GetAllByCategoryId(int id)
+        public IDataResult<List<Product>> GetAllByCategoryId(int categoryId)
         {
-            return _productDal.GetAll(p => p.CategoryId == id);
+            return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.CategoryId == categoryId).ToList());
         }
 
         public IDataResult<Product> GetById(int id)
@@ -87,9 +66,16 @@ namespace Business.Concrete
             return _productDal.Get(p => p.Id == id);
         }
 
-        public List<GetProductCategoryNameDto> GetproductDetails()
+        public IDataResult<List<GetProductCategoryNameDto>> GetProductCategoryName()
         {
-            return _productDal.GetproductDetails();
+            return new SuccessDataResult<List<GetProductCategoryNameDto>>(_productDal.GetProductCategoryName());
+
+        }
+
+        public IResult Update(Product product)
+        {
+            _productDal.Update(product);
+            return new SuccessResult(Messages.ProductUpdated);
         }
     }
 }

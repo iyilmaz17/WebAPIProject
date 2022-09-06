@@ -16,37 +16,80 @@ namespace WebAPI.Controllers
         {
             this.productService = productService;
         }
-        [HttpGet("{id}")]
-        public Product GetById(int id)
-        {
-            return productService.GetById(id).Data ;
-        }
-        [HttpGet]
-        public List<GetProductCategoryNameDto> GetAll()
-        {
-            return productService.GetproductDetails();
-        }
         [HttpPost("add")]
-        public IActionResult AddProduct(Product product)
+        public IActionResult Add(Product product)
         {
-           var result = productService.AddProduct(product);
+            var result = productService.Add(product);
             if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
-        [HttpGet("getall")]
-        public IActionResult GetAll1()
+        [HttpPut("update")]
+        public IActionResult Update(Product product)
         {
+            var result = productService.Update(product);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        [HttpDelete("delete")]
+        public IActionResult Delete(Product product)
+        {
+            var result = productService.Delete(product);
+            if (result.Success)
+            {
+                return Ok(result.Message);
+            }
+            return BadRequest(result.Message);
+        }
 
+        [HttpGet("id")]
+        public IActionResult GetById(int id)
+        {
+            var result = productService.GetById(id);
+
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+            return BadRequest(result.Message);
+        }
+
+        [HttpGet("categorynamegetall")]
+        public IActionResult GetAllCategoryName()
+        {
+            var result = productService.GetProductCategoryName();
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+            return BadRequest(result.Message);
+        }
+
+        [HttpGet("getall")]
+        public IActionResult GetAll()
+        {
             var result = productService.GetAll();
-           // if (result.Success)
-            //{
-              //  return Ok(result);
-            //}
-            return Ok(result);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result.Message);
 
+        }
+        [HttpGet("GetAllByCategoryId")]
+        public IActionResult GetAllByCategoryId(int categoryId)
+        {
+            var result = productService.GetAllByCategoryId(categoryId);
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+            return BadRequest(result.Message);
         }
 
     }
