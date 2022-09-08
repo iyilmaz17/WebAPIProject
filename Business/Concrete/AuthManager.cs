@@ -1,8 +1,8 @@
 ﻿using Business.Abstract;
 using Business.Constants;
 using Business.Results;
+using Core.Entities.Concrete;
 using Core.Utilities.Security.Hashing;
-using Entities.Concrete;
 using Entities.Dtos;
 using System;
 using System.Collections.Generic;

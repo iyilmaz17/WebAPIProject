@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Concrete
+namespace Core.Entities.Concrete
 {
     public class User : IEntity
     {
@@ -20,7 +20,7 @@ namespace Entities.Concrete
         public DateTime BirthDate { get; set; }
         public string Phone { get; set; }
         public string ProfilImage { get; set; }
-        public List<Address> Address { get; set; }
+        //public List<Address> Address { get; set; }
 
     }
 }

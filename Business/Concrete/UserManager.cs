@@ -2,8 +2,8 @@
 using Business.Abstract;
 using Business.Constants;
 using Business.Results;
+using Core.Entities.Concrete;
 using DataAccess.Abstract;
-using Entities.Concrete;
 using Entities.Dtos;
 
 namespace Business.Concrete

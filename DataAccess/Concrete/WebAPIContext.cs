@@ -15,12 +15,12 @@ namespace DataAccess.Concrete
         {
             optionsBuilder.UseSqlServer("server=DESKTOP-MRUSB36; database=WebAPI;integrated security=true;");
         }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Address>()
-                .HasOne(p => p.User)
-                .WithMany(b => b.Address);
-        }
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<Address>()
+        //        .HasOne(p => p.User)
+        //        .WithMany(b => b.Address);
+        //}
         public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<City> Citys { get; set; }

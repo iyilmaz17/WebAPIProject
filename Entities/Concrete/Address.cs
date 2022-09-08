@@ -1,4 +1,5 @@
 ﻿using Core.Entities;
+using Core.Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace Entities.Concrete
         public int CityId { get; set; }
         public int DistrictId { get; set; }
         public string AddressText { get; set; }
-        public User User { get; set; }
+       // public User User { get; set; }
 
     }
 }
