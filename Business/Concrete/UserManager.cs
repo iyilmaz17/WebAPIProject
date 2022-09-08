@@ -19,25 +19,7 @@ namespace Business.Concrete
             _userDal = userDal;
             _addressService = addressService;
             _mapper = mapper;
-        }   
-        public void Register(UserForRegisterDto userForRegisterDto)
-        {
-            // User And UserForRegisterDto AutoMapping
-            var user = new User();
-            user = _mapper.Map<User>(userForRegisterDto);
-            _userDal.Add(user);
-
-            var address = new Address
-            {
-                UserId = user.Id,
-                AddressText = userForRegisterDto.AddressText,
-                CityId = userForRegisterDto.CityId,
-                DistrictId = userForRegisterDto.DistrictId,
-
-            };
-            _addressService.AddAddress(address);
-        }
-
+        }  
         public List<User> GetAll()
         {
             return _userDal.GetAll();
@@ -48,6 +30,16 @@ namespace Business.Concrete
             return _userDal.Get(p => p.Id == id);
         }
 
+        public void add(User user)
+        {
+            _userDal.Add(user);
+        }
+
+        public User GetByMail(string email)
+        {
+            return _userDal.Get(u => u.Email == email);
+        }
+
         public UserForLoginDto Login(UserForLoginDto userForLoginDto)
         {
             var result = _userDal.Get(p => p.Email == userForLoginDto.Email && p.Password == userForLoginDto.Password);
@@ -56,10 +48,26 @@ namespace Business.Concrete
                 return userForLoginDto;
             }
             return null;
-            
-
 
         }
+
+        //public void Register(UserForRegisterDto userForRegisterDto)
+        //{
+        //    // User And UserForRegisterDto AutoMapping
+        //    var user = new User();
+        //    user = _mapper.Map<User>(userForRegisterDto);
+        //    _userDal.Add(user);
+
+        //    var address = new Address
+        //    {
+        //        UserId = user.Id,
+        //        AddressText = userForRegisterDto.AddressText,
+        //        CityId = userForRegisterDto.CityId,
+        //        DistrictId = userForRegisterDto.DistrictId,
+
+        //    };
+        //    _addressService.AddAddress(address);
+        //}
 
         //public void Register(UserForRegisterDto userForRegisterDto)
         //{

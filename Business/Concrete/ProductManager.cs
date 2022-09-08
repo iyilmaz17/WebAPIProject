@@ -36,18 +36,19 @@ namespace Business.Concrete
             _productDal.Delete(product);
             return new SuccessResult(Messages.ProductDeleted);
         }
+
         public IDataResult<List<Product>> GetAll()
         {
             var result = new List<Product>();
             if (_cacheManager.IsAdd("GetAll"))
             {
                 result = _cacheManager.Get<List<Product>>("GetAll");
-                return new SuccessDataResult<List<Product>>(result, Messages.ProductsListed);
+                return new SuccessDataResult<List<Product>>(result, Messages.ProductsListed1);
             }
             else
             {
                 result = _productDal.GetAll();
-                _cacheManager.Add("GetAll", result, 10);
+                _cacheManager.Add("GetAll", result, 1);
                 return new SuccessDataResult<List<Product>>(result, Messages.ProductsListed);
             }
         }

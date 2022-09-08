@@ -8,6 +8,7 @@ using DataAccess.Abstract;
 using DataAccess.Concrete;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using WebAPI.Extensions;
 
 
 
@@ -26,7 +27,10 @@ builder.Services.AddCors(options =>
                           policy.AllowAnyMethod();
                       });
 });
-builder.Services.AddMemoryCache();
+
+// Cache Method üstünde attribute kullanarak 
+builder.Services.ConfigureResponseCaching();
+//builder.Services.AddMemoryCache();
 // Add services to the container.
 builder.Services.AddScoped<IProductDal, EfProductDal>();
 builder.Services.AddScoped<IProductService, ProductManager>();
@@ -45,6 +49,8 @@ builder.Services.AddScoped<ICategoryService, CategoryManager>();
 
 builder.Services.AddScoped<IAddressDal, EfAddressDal>();
 builder.Services.AddScoped<IAddressService, AddressManager>();
+
+builder.Services.AddScoped<IAuthService, AuthManager>();
 
 
 builder.Services.AddScoped<ICacheManager, MemoryCacheManager>();
@@ -82,6 +88,11 @@ if (app.Environment.IsDevelopment())
 }
 app.UseCors(MyAllowSpecificOrigins);
 app.UseAuthorization();
+
+
+// Cache Method üstünde attribute kullanarak 
+app.UseResponseCaching();
+
 
 app.MapControllers();
 

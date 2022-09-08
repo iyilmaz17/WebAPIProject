@@ -50,13 +50,13 @@ namespace WebAPI.Controllers
             //return new UserForLoginDto { };
 
         }
-        [HttpPost("register")]
-        public ActionResult Register(UserForRegisterDto userForRegisterDto)
-        {
+        //[HttpPost("register")]
+        //public ActionResult Register(UserForRegisterDto userForRegisterDto)
+        //{
 
-            userService.Register(userForRegisterDto);
-            return Ok();
-        }
+        //    userService.Register(userForRegisterDto);
+        //    return Ok();
+        //}
 
 
 

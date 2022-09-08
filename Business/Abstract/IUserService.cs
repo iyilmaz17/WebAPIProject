@@ -10,11 +10,12 @@ using System.Threading.Tasks;
 namespace Business.Abstract
 {
     public interface IUserService
-
     {
+        User GetByMail(string email);
+        void add(User user);
         List<User> GetAll();
         User GetById(int id);
-        void Register(UserForRegisterDto userForRegisterDto);
+        //void Register(UserForRegisterDto userForRegisterDto);
         UserForLoginDto Login(UserForLoginDto userForLoginDto);
 
     }

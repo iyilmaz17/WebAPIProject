@@ -1,4 +1,7 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Business.Results;
+using Core.CrossCuttingConcerns.Caching;
 using Entities.Concrete;
 using Entities.Dtos;
 using Microsoft.AspNetCore.Http;
@@ -11,10 +14,12 @@ namespace WebAPI.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductService productService;
+        private readonly ICacheManager _cacheManager;
 
-        public ProductController(IProductService productService)
+        public ProductController(IProductService productService, ICacheManager cacheManager)
         {
             this.productService = productService;
+            _cacheManager = cacheManager;   
         }
         [HttpPost("add")]
         public IActionResult Add(Product product)
@@ -46,7 +51,7 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result.Message);
         }
-
+        [ResponseCache(Duration =30)]
         [HttpGet("id")]
         public IActionResult GetById(int id)
         {
@@ -69,7 +74,7 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result.Message);
         }
-
+        
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
@@ -79,7 +84,6 @@ namespace WebAPI.Controllers
                 return Ok(result);
             }
             return BadRequest(result.Message);
-
         }
         [HttpGet("GetAllByCategoryId")]
         public IActionResult GetAllByCategoryId(int categoryId)
