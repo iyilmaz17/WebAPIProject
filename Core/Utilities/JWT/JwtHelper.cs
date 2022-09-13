@@ -59,7 +59,6 @@ namespace Core.Utilities.JWT
             claims.AddEmail(user.Email);
             claims.AddName($"{user.Name} {user.Surname}");
             claims.AddRoles(operationClaims.Select(c => c.Name).ToArray());
-
             return claims;
         }
     }

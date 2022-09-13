@@ -1,16 +1,21 @@
+using Autofac.Core;
 using AutoMapper;
 using Business.Abstract;
 using Business.AutoMapper;
 using Business.Concrete;
 using Core.CrossCuttingConcerns.Caching;
 using Core.CrossCuttingConcerns.Caching.Microsoft;
+using Core.Utilities.JWT;
 using DataAccess.Abstract;
 using DataAccess.Concrete;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using WebAPI.Extensions;
-
-
+using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Castle.Core.Configuration;
+using Core.Utilities.Encyption;
+using TokenOptions = Core.Utilities.JWT.TokenOptions;
 
 // CORS Etkinleþtimek için 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -39,7 +44,7 @@ builder.Services.AddScoped<IUserDal, EfUsersDal>();
 builder.Services.AddScoped<IUserService, UserManager>();
 
 builder.Services.AddScoped<ICityDal, EfCityDal>();
-builder.Services.AddScoped<ICityService,CityManager >();
+builder.Services.AddScoped<ICityService, CityManager>();
 
 builder.Services.AddScoped<IDistrictDal, EfDistrictDal>();
 builder.Services.AddScoped<IDistrictService, DistrictManager>();
@@ -51,7 +56,7 @@ builder.Services.AddScoped<IAddressDal, EfAddressDal>();
 builder.Services.AddScoped<IAddressService, AddressManager>();
 
 builder.Services.AddScoped<IAuthService, AuthManager>();
-
+builder.Services.AddScoped<ITokenHelper, JwtHelper>();
 
 builder.Services.AddScoped<ICacheManager, MemoryCacheManager>();
 
@@ -76,7 +81,37 @@ var mapper = config.CreateMapper();
 builder.Services.AddSingleton(mapper);
 
 // AutoMapper
+//var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
+//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+//                .AddJwtBearer(options =>
+//                {
+//                    options.TokenValidationParameters = new TokenValidationParameters
+//                    {
+//                        ValidateIssuer = true,
+//                        ValidateAudience = true,
+//                        ValidateLifetime = true,
+//                        ValidIssuer = tokenOptions.Issuer,
+//                        ValidAudience = tokenOptions.Audience,
+//                        ValidateIssuerSigningKey = true,
+//                        IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
+//                    };
+//                });
 
+var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new()
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidIssuer = tokenOptions.Issuer,
+            ValidAudience = tokenOptions.Audience,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
+        };
+    });
 
 var app = builder.Build();
 
@@ -87,6 +122,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseCors(MyAllowSpecificOrigins);
+
+app.UseAuthentication();
+
 app.UseAuthorization();
 
 

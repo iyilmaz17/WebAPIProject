@@ -4,11 +4,14 @@ using Business.Results;
 using Core.CrossCuttingConcerns.Caching;
 using Entities.Concrete;
 using Entities.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace WebAPI.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
     public class ProductController : ControllerBase
@@ -21,6 +24,7 @@ namespace WebAPI.Controllers
             this.productService = productService;
             _cacheManager = cacheManager;   
         }
+        [Authorize(Roles = "Admin")]
         [HttpPost("add")]
         public IActionResult Add(Product product)
         {
@@ -51,7 +55,7 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result.Message);
         }
-        [ResponseCache(Duration =30)]
+        [ResponseCache(Duration = 30)]
         [HttpGet("id")]
         public IActionResult GetById(int id)
         {
@@ -74,7 +78,7 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result.Message);
         }
-        
+        [Authorize(Roles = "User")]
         [HttpGet("getall")]
         public IActionResult GetAll()
         {

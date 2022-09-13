@@ -11,6 +11,7 @@ namespace Business.Abstract
 {
     public interface IUserService
     {
+        List<OperationClaim> GetClaims(User user);
         User GetByMail(string email);
         void add(User user);
         List<User> GetAll();

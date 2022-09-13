@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Entities.Concrete;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,9 @@ namespace Business.Constants
         public static string UserAlreadyExists = "Kullanıcı zaten sisteme kayıtlı";
         public static string UserRegisterOk = "Kullanıcı Eklendi";
         public static string MaintenanceTime = "Sistem bakımda";
-
+        internal static string AccessTokenCreated ="Token oluşturuldu";
+        internal static User UserNotFound;
+        internal static User PasswordError;
+        internal static string SuccessfulLogin;
     }
 }

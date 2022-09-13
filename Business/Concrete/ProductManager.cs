@@ -8,6 +8,7 @@ using Entities.Dtos;
 using Microsoft.EntityFrameworkCore.Metadata;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Text;
@@ -19,7 +20,6 @@ namespace Business.Concrete
     {
         IProductDal _productDal;
         ICacheManager _cacheManager;
-
         public ProductManager(IProductDal productDal, ICacheManager cacheManager)
         {
             _productDal = productDal;
@@ -30,15 +30,15 @@ namespace Business.Concrete
             _productDal.Add(product);
             return new SuccessResult(Messages.ProductAdded);
         }
-
         public IResult Delete(Product product)
         {
             _productDal.Delete(product);
             return new SuccessResult(Messages.ProductDeleted);
         }
-
+        
         public IDataResult<List<Product>> GetAll()
         {
+
             var result = new List<Product>();
             if (_cacheManager.IsAdd("GetAll"))
             {

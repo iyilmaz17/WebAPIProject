@@ -51,6 +51,11 @@ namespace Business.Concrete
 
         }
 
+        public List<OperationClaim> GetClaims(User user)
+        {
+            return _userDal.GetClaims(user);
+        }
+
         //public void Register(UserForRegisterDto userForRegisterDto)
         //{
         //    // User And UserForRegisterDto AutoMapping
