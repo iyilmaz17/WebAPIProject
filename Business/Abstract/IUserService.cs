@@ -16,7 +16,6 @@ namespace Business.Abstract
         void add(User user);
         List<User> GetAll();
         User GetById(int id);
-        //void Register(UserForRegisterDto userForRegisterDto);
         UserForLoginDto Login(UserForLoginDto userForLoginDto);
 
     }

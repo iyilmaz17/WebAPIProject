@@ -20,7 +20,7 @@ namespace Core.Entities.Concrete
         public DateTime BirthDate { get; set; }
         public string Phone { get; set; }
         public string ProfilImage { get; set; }
-        //public List<Address> Address { get; set; }
+        public int UserCode { get; set; }
 
     }
 }

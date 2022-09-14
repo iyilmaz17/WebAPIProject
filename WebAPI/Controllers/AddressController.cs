@@ -19,7 +19,7 @@ namespace WebAPI.Controllers
         [HttpGet]
         public List<Address> GetUserAddress(int id)
         {
-            return _addressService.GetAll().Where(p=>p.UserId==id).ToList();
+            return _addressService.GetAll().Where(p=>p.CustomerId==id).ToList();
         }
         [HttpGet("{ll}")]
 

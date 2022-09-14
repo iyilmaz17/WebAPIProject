@@ -1,7 +1,5 @@
-using Autofac.Core;
 using AutoMapper;
 using Business.Abstract;
-using Business.AutoMapper;
 using Business.Concrete;
 using Core.CrossCuttingConcerns.Caching;
 using Core.CrossCuttingConcerns.Caching.Microsoft;
@@ -16,6 +14,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Castle.Core.Configuration;
 using Core.Utilities.Encyption;
 using TokenOptions = Core.Utilities.JWT.TokenOptions;
+using WebAPI.AutoMapper;
 
 // CORS Etkinleþtimek için 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -55,8 +54,16 @@ builder.Services.AddScoped<ICategoryService, CategoryManager>();
 builder.Services.AddScoped<IAddressDal, EfAddressDal>();
 builder.Services.AddScoped<IAddressService, AddressManager>();
 
+
+builder.Services.AddScoped<ICustomerDal, EfCustomerDal>();
+builder.Services.AddScoped<ICustomerService, CustomerManager>();
+
+
+
 builder.Services.AddScoped<IAuthService, AuthManager>();
 builder.Services.AddScoped<ITokenHelper, JwtHelper>();
+
+
 
 builder.Services.AddScoped<ICacheManager, MemoryCacheManager>();
 
@@ -81,6 +88,8 @@ var mapper = config.CreateMapper();
 builder.Services.AddSingleton(mapper);
 
 // AutoMapper
+
+
 //var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 //builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 //                .AddJwtBearer(options =>
