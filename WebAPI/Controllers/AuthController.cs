@@ -9,7 +9,7 @@ namespace WebAPI.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private IAuthService _authService;
+        private readonly IAuthService _authService;
         public AuthController(IAuthService authService)
         {
             _authService = authService;
@@ -29,7 +29,6 @@ namespace WebAPI.Controllers
             {
                 return Ok(result.Data);
             }
-
             return BadRequest(result.Message);
         }
         [HttpPost("login")]

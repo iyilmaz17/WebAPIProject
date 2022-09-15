@@ -17,6 +17,7 @@ namespace Business.Abstract
         List<User> GetAll();
         User GetById(int id);
         UserForLoginDto Login(UserForLoginDto userForLoginDto);
+        IDataResult<List<UserDetailsAndGetRole>> GetRolesGetRoles();
 
     }
 }

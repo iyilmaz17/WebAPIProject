@@ -18,15 +18,23 @@ namespace Business.Concrete
 {
     public class CustomerManager : ICustomerService
     {
-        private readonly ICustomerDal _customerDal ;
+        private readonly ICustomerDal _customerDal;
         private readonly IAddressService _addressService;
         private readonly IMapper _mapper;
         public CustomerManager(ICustomerDal customerDal, IAddressService addressService, IMapper mapper)
         {
             _customerDal = customerDal;
             _addressService = addressService;
-            _mapper = mapper;   
+            _mapper = mapper;
         }
+
+        public IDataResult<List<Customer>> GetAll()
+        {
+            var result = _customerDal.GetAll();
+            return new SuccessDataResult<List<Customer>>(result);
+        }
+
+        
 
         public IDataResult<Customer> Login(CustomerForLoginDto customerForLoginDto)
         {
@@ -43,13 +51,13 @@ namespace Business.Concrete
         }
 
 
-        public IResult Register(CustomerForRegisterDto customerForRegisterDto, string password)
+        public IResult Register(CustomerForRegisterDto customerForRegisterDto)
         {
             byte[] passwordHash, passwordSalt;
-            HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
+            HashingHelper.CreatePasswordHash(customerForRegisterDto.Password, out passwordHash, out passwordSalt);
             //var customer = new Customer();
             //customer = _mapper.Map<Customer>(customerForRegisterDto);
-
+            // Önce atama yap sonra map
 
             var customer = new Customer
             {
@@ -73,8 +81,8 @@ namespace Business.Concrete
                 CityId = customerForRegisterDto.CityId,
                 DistrictId = customerForRegisterDto.DistrictId,
 
-                };
-                _addressService.AddAddress(address);
+            };
+            _addressService.AddAddress(address);
             return new SuccessResult(Messages.UserRegisterOk);
         }
 

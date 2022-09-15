@@ -9,12 +9,11 @@ namespace WebAPI.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        private ICustomerService _customerService;
+        private readonly ICustomerService _customerService;
         public CustomerController(ICustomerService customerService)
         {
             _customerService = customerService;
         }
-
 
         [HttpPost("register")]
         public ActionResult Register(CustomerForRegisterDto customerForRegisterDto)
@@ -25,13 +24,13 @@ namespace WebAPI.Controllers
                 return BadRequest(userExists.Message);
             }
 
-            var registerResult = _customerService.Register(customerForRegisterDto, customerForRegisterDto.Password);
+            var registerResult = _customerService.Register(customerForRegisterDto);
             {
                 return Ok(registerResult.Message);
             }
         }
 
-        [HttpPost("login")]
+        [HttpPost ("login")]
         public ActionResult Login(CustomerForLoginDto customerForLoginDto)
         {
             var userToLogin = _customerService.Login(customerForLoginDto);
@@ -39,7 +38,22 @@ namespace WebAPI.Controllers
             {
                 return BadRequest(userToLogin.Message);
             }
-                return Ok(userToLogin.Message);
+            return Ok(userToLogin);
         }
+
+
+        [HttpGet("getall")]
+        public ActionResult GetAll()
+        {
+            var result = _customerService.GetAll();
+
+            if (!result.Success)
+            {
+                return BadRequest(result.Message);
+                
+            }
+            return Ok(result);
+        }
+
     }
 }

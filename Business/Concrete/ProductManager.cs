@@ -18,8 +18,8 @@ namespace Business.Concrete
 {
     public class ProductManager : IProductService
     {
-        IProductDal _productDal;
-        ICacheManager _cacheManager;
+        private readonly IProductDal _productDal;
+        private readonly ICacheManager _cacheManager;
         public ProductManager(IProductDal productDal, ICacheManager cacheManager)
         {
             _productDal = productDal;
@@ -35,7 +35,7 @@ namespace Business.Concrete
             _productDal.Delete(product);
             return new SuccessResult(Messages.ProductDeleted);
         }
-        
+
         public IDataResult<List<Product>> GetAll()
         {
 
@@ -69,7 +69,8 @@ namespace Business.Concrete
 
         public IDataResult<List<GetProductCategoryNameDto>> GetProductCategoryName()
         {
-            return new SuccessDataResult<List<GetProductCategoryNameDto>>(_productDal.GetProductCategoryName());
+            var result = _productDal.GetProductCategoryName();
+            return new SuccessDataResult<List<GetProductCategoryNameDto>>(result,Messages.ProductsListed);
 
         }
 

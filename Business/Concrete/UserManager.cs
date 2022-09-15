@@ -10,7 +10,7 @@ namespace Business.Concrete
 {
     public class UserManager : IUserService
     {
-        IUserDal _userDal;
+       readonly IUserDal _userDal;
 
         public UserManager(IUserDal userDal)
         {
@@ -48,6 +48,12 @@ namespace Business.Concrete
         public List<OperationClaim> GetClaims(User user)
         {
             return _userDal.GetClaims(user);
+        }
+
+        public IDataResult<List<UserDetailsAndGetRole>> GetRolesGetRoles()
+        {
+            var result = _userDal.GetRoles();
+            return new SuccessDataResult<List<UserDetailsAndGetRole>>(result);
         }
     }
 }

@@ -11,7 +11,7 @@ using System.Data;
 
 namespace WebAPI.Controllers
 {
-    
+
     [Route("api/[controller]")]
     [ApiController]
     public class ProductController : ControllerBase
@@ -22,7 +22,7 @@ namespace WebAPI.Controllers
         public ProductController(IProductService productService, ICacheManager cacheManager)
         {
             this.productService = productService;
-            _cacheManager = cacheManager;   
+            _cacheManager = cacheManager;
         }
         [Authorize(Roles = "Admin")]
         [HttpPost("add")]
@@ -74,11 +74,11 @@ namespace WebAPI.Controllers
             var result = productService.GetProductCategoryName();
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
             }
             return BadRequest(result.Message);
         }
-        [Authorize(Roles = "User")]
+        //[Authorize(Roles = "User")]
         [HttpGet("getall")]
         public IActionResult GetAll()
         {

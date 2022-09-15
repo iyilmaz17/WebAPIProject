@@ -11,8 +11,9 @@ namespace Business.Abstract
 {
     public  interface ICustomerService
     {
-        IResult Register(CustomerForRegisterDto customerForRegisterDto, string password);
+        IResult Register(CustomerForRegisterDto customerForRegisterDto);
         IResult UserExists(string email);
+        IDataResult<List<Customer>> GetAll();
         IDataResult<Customer> Login(CustomerForLoginDto customerForLoginDto);
 
     }

@@ -21,7 +21,7 @@ namespace WebAPI.Controllers
             this.userService = userService;
         }
         
-        [HttpGet("{id}")]
+        [HttpGet("id")]
         public User Get(int id)
         {
             return userService.GetById(id);
@@ -31,38 +31,12 @@ namespace WebAPI.Controllers
         {
             return userService.GetAll();
         }
-        [HttpPost("login")]
-        public UserForLoginDto Login(UserForLoginDto userForLoginDto)
+        [HttpGet("userdetailsandgetroles")]
+        public ActionResult UserDetailsGetRoles()
         {
-            var userToLogin = userService.Login(userForLoginDto);
-            if (userToLogin!=null)
-            {
-                return new UserForLoginDto { Email = userForLoginDto.Email };
-            }
-            return new UserForLoginDto { };
-
-
-            //if (userToLogin != null)
-            //{
-            //    return new UserForLoginDto { Email = userForLoginDto.Email }; 
-            //}
-
-            //return new UserForLoginDto { };
-
+            var result = userService.GetRolesGetRoles();
+            return Ok(result); 
         }
-        //[HttpPost("register")]
-        //public ActionResult Register(UserForRegisterDto userForRegisterDto)
-        //{
-
-        //    userService.Register(userForRegisterDto);
-        //    return Ok();
-        //}
-
-
-
-
-
-
 
 
     }
