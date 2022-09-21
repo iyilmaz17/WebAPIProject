@@ -33,7 +33,11 @@ namespace Business.Concrete
             var result = _customerDal.GetAll();
             return new SuccessDataResult<List<Customer>>(result);
         }
-
+        //public IDataResult<CustomerForLoginDto> login (CustomerForLoginDto customer)
+        //{
+        //    var result = _customerDal.GetCustomer(customer);
+        //    return new SuccessDataResult<CustomerForLoginDto>(result);
+        //}
         
 
         public IDataResult<Customer> Login(CustomerForLoginDto customerForLoginDto)

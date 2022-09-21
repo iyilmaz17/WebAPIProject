@@ -30,7 +30,7 @@ namespace WebAPI.Controllers
             }
         }
 
-        [HttpPost ("login")]
+        [HttpPost("login")]
         public ActionResult Login(CustomerForLoginDto customerForLoginDto)
         {
             var userToLogin = _customerService.Login(customerForLoginDto);
@@ -50,10 +50,12 @@ namespace WebAPI.Controllers
             if (!result.Success)
             {
                 return BadRequest(result.Message);
-                
+
             }
             return Ok(result);
         }
+        //[HttpPost("testlogin")]
+        //public ActionResult GetCustomer(CustomerForLoginDto customer) { return Ok(customer); }
 
     }
 }
