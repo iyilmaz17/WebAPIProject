@@ -18,11 +18,13 @@ namespace WebAPI.Controllers
     {
         private readonly IProductService productService;
         private readonly ICacheManager _cacheManager;
+        private readonly ILogger<ProductController> _logger;
 
-        public ProductController(IProductService productService, ICacheManager cacheManager)
+        public ProductController(IProductService productService, ICacheManager cacheManager, ILogger<ProductController> logger)
         {
             this.productService = productService;
             _cacheManager = cacheManager;
+            _logger = logger;   
         }
         [Authorize(Roles = "Admin")]
         [HttpPost("add")]
@@ -31,7 +33,9 @@ namespace WebAPI.Controllers
             var result = productService.Add(product);
             if (result.Success)
             {
+                _logger.LogInformation("Yeni ürün eklendi");
                 return Ok(result);
+
             }
             return BadRequest(result);
         }

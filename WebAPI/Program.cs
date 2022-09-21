@@ -6,15 +6,14 @@ using Core.CrossCuttingConcerns.Caching.Microsoft;
 using Core.Utilities.JWT;
 using DataAccess.Abstract;
 using DataAccess.Concrete;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using WebAPI.Extensions;
-using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Castle.Core.Configuration;
 using Core.Utilities.Encyption;
 using TokenOptions = Core.Utilities.JWT.TokenOptions;
 using WebAPI.AutoMapper;
+using Serilog;
+using Serilog.Core;
+using Serilog.Sinks.MSSqlServer;
 
 // CORS Etkinleþtimek için 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
@@ -64,7 +63,6 @@ builder.Services.AddScoped<IAuthService, AuthManager>();
 builder.Services.AddScoped<ITokenHelper, JwtHelper>();
 
 
-
 builder.Services.AddScoped<ICacheManager, MemoryCacheManager>();
 
 builder.Services.AddControllers();
@@ -73,6 +71,25 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddMemoryCache();
+
+// SeriLog
+
+
+Logger log = new LoggerConfiguration()
+    .WriteTo.Console()
+    //.WriteTo.File(@"C:\Users\iylmz\Desktop\logs\log.txt")
+    .WriteTo.MSSqlServer(
+        connectionString: "server=DESKTOP-MRUSB36; database=WebAPI;integrated security=true;",
+        sinkOptions: new MSSqlServerSinkOptions
+        {
+            AutoCreateSqlTable = true,
+            TableName = "Logs"
+        })
+    .CreateLogger();
+builder.Host.UseSerilog(log);
+
+// SeriLog
+
 
 
 var assembly = System.Reflection.Assembly.GetExecutingAssembly();
@@ -123,7 +140,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 var app = builder.Build();
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
