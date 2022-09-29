@@ -26,7 +26,7 @@ namespace WebAPI.Controllers
 
             var registerResult = _customerService.Register(customerForRegisterDto);
             {
-                return Ok(registerResult.Message);
+                return Ok(registerResult);
             }
         }
 

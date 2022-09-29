@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Business.AutoMapper
 {
-    internal class AutoMapperProfile : Profile
+    public class AutoMapperProfile : Profile
     {
         public AutoMapperProfile()
         {

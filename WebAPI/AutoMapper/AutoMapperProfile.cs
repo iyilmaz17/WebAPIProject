@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Core.Entities.Concrete;
+using Entities.Concrete;
 using Entities.Dtos;
 
 namespace WebAPI.AutoMapper
@@ -9,6 +10,8 @@ namespace WebAPI.AutoMapper
         public AutoMapperProfile()
         {
             CreateMap<User, UserForRegisterDto>().ReverseMap();
+            CreateMap<Customer, CustomerForRegisterDto>().ReverseMap();
+            CreateMap<Address, CustomerForRegisterDto>().ReverseMap();
         }
     }
 }

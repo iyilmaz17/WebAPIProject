@@ -14,7 +14,8 @@ namespace Business.Abstract
         IResult Register(CustomerForRegisterDto customerForRegisterDto);
         IResult UserExists(string email);
         IDataResult<List<Customer>> GetAll();
-        IDataResult<Customer> Login(CustomerForLoginDto customerForLoginDto);
+        IDataResult<ReturnCustomerForloginDto> Login(CustomerForLoginDto customerForLoginDto);
+        //IDataResult<CustomerForLoginDto> Login(CustomerForLoginDto customerForLoginDto);
 
     }
 }

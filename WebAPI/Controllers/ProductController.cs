@@ -7,6 +7,7 @@ using Entities.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Serilog.Context;
 using System.Data;
 
 namespace WebAPI.Controllers
@@ -33,7 +34,8 @@ namespace WebAPI.Controllers
             var result = productService.Add(product);
             if (result.Success)
             {
-                _logger.LogInformation("Yeni ürün eklendi");
+                LogContext.PushProperty("UserId", product.Id);
+                _logger.LogInformation("Yeni ürün eklendi {product}", product.Id);
                 return Ok(result);
 
             }

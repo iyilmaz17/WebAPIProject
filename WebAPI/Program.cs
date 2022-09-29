@@ -14,11 +14,17 @@ using WebAPI.AutoMapper;
 using Serilog;
 using Serilog.Core;
 using Serilog.Sinks.MSSqlServer;
+using System.Collections.ObjectModel;
+using System.Data;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using Microsoft.Extensions.Logging;
 
 // CORS Etkinleþtimek için 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
+
+
 // CORS Etkinleþtimek için
 builder.Services.AddCors(options =>
 {
@@ -58,7 +64,6 @@ builder.Services.AddScoped<ICustomerDal, EfCustomerDal>();
 builder.Services.AddScoped<ICustomerService, CustomerManager>();
 
 
-
 builder.Services.AddScoped<IAuthService, AuthManager>();
 builder.Services.AddScoped<ITokenHelper, JwtHelper>();
 
@@ -72,9 +77,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddMemoryCache();
 
-// SeriLog
-
-
+//SeriLog
 Logger log = new LoggerConfiguration()
     .WriteTo.Console()
     //.WriteTo.File(@"C:\Users\iylmz\Desktop\logs\log.txt")
@@ -88,11 +91,11 @@ Logger log = new LoggerConfiguration()
     .CreateLogger();
 builder.Host.UseSerilog(log);
 
-// SeriLog
+// @"server=DESKTOP-MRUSB36; database=WebAPI;integrated security=true;"
 
 
+// SeriLog End
 
-var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
 // AutoMapper
 
@@ -106,22 +109,6 @@ builder.Services.AddSingleton(mapper);
 
 // AutoMapper
 
-
-//var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
-//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-//                .AddJwtBearer(options =>
-//                {
-//                    options.TokenValidationParameters = new TokenValidationParameters
-//                    {
-//                        ValidateIssuer = true,
-//                        ValidateAudience = true,
-//                        ValidateLifetime = true,
-//                        ValidIssuer = tokenOptions.Issuer,
-//                        ValidAudience = tokenOptions.Audience,
-//                        ValidateIssuerSigningKey = true,
-//                        IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
-//                    };
-//                });
 
 var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -140,6 +127,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 var app = builder.Build();
+
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

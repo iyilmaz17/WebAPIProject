@@ -15,19 +15,20 @@ namespace DataAccess.Concrete
     {
 
 
-        //public CustomerForLoginDto GetCustomer(CustomerForLoginDto customer)
-        //{
-        //    using (var context = new WebAPIContext())
-        //    {
-        //         Get(p => p.Email == customer.Email && p.Password == customer.Password);
-        //        CustomerForLoginDto resultDto = new()
-        //        {
-        //            Email = customer.Email,
-        //            Password = customer.Password
-        //        };
-        //        return resultDto;
+        public ReturnCustomerForloginDto GetCustomer(CustomerForLoginDto customer)
+        {
+            using (var context = new WebAPIContext())
+            {
+                var value = Get(p => p.Email == customer.Email);
+                ReturnCustomerForloginDto resultDto = new()
+                {
+                    Email = value.Email,
+                    Id = value.Id,
+                    Name = value.Name
+                };
+                return resultDto;
 
-        //    }
-        //}
+            }
+        }
     }
 }
