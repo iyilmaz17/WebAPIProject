@@ -17,13 +17,13 @@ namespace WebAPI.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly IProductService productService;
+        private readonly IProductService _productService;
         private readonly ICacheManager _cacheManager;
         private readonly ILogger<ProductController> _logger;
 
         public ProductController(IProductService productService, ICacheManager cacheManager, ILogger<ProductController> logger)
         {
-            this.productService = productService;
+            _productService = productService;
             _cacheManager = cacheManager;
             _logger = logger;   
         }
@@ -31,7 +31,7 @@ namespace WebAPI.Controllers
         [HttpPost("add")]
         public IActionResult Add(Product product)
         {
-            var result = productService.Add(product);
+            var result = _productService.Add(product);
             if (result.Success)
             {
                 LogContext.PushProperty("UserId", product.Id);
@@ -44,7 +44,7 @@ namespace WebAPI.Controllers
         [HttpPut("update")]
         public IActionResult Update(Product product)
         {
-            var result = productService.Update(product);
+            var result = _productService.Update(product);
             if (result.Success)
             {
                 return Ok(result);
@@ -54,7 +54,7 @@ namespace WebAPI.Controllers
         [HttpDelete("delete")]
         public IActionResult Delete(Product product)
         {
-            var result = productService.Delete(product);
+            var result = _productService.Delete(product);
             if (result.Success)
             {
                 return Ok(result.Message);
@@ -65,7 +65,7 @@ namespace WebAPI.Controllers
         [HttpGet("id")]
         public IActionResult GetById(int id)
         {
-            var result = productService.GetById(id);
+            var result = _productService.GetById(id);
 
             if (result.Success)
             {
@@ -77,7 +77,7 @@ namespace WebAPI.Controllers
         [HttpGet("categorynamegetall")]
         public IActionResult GetAllCategoryName()
         {
-            var result = productService.GetProductCategoryName();
+            var result = _productService.GetProductCategoryName();
             if (result.Success)
             {
                 return Ok(result);
@@ -88,7 +88,7 @@ namespace WebAPI.Controllers
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            var result = productService.GetAll();
+            var result = _productService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
@@ -98,7 +98,7 @@ namespace WebAPI.Controllers
         [HttpGet("GetAllByCategoryId")]
         public IActionResult GetAllByCategoryId(int categoryId)
         {
-            var result = productService.GetAllByCategoryId(categoryId);
+            var result = _productService.GetAllByCategoryId(categoryId);
             if (result.Success)
             {
                 return Ok(result.Data);

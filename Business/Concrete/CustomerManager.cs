@@ -79,7 +79,6 @@ namespace Business.Concrete
             //    Status = true
             //};
             _customerDal.Add(customer);
-
             var address = new Address
             {
                 CustomerId = customer.Id,
